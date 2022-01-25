@@ -18,5 +18,5 @@ func main() {
 	r.PATCH("/swords/:id", controllers.UpdateSword)
 	r.DELETE("/swords/:id", controllers.DeleteSword)
 
-	r.Run(":4000")
+	r.Run()
 }
