@@ -15,6 +15,7 @@ func main() {
 	r.GET("/swords", controllers.FindSwords)
 	r.POST("/swords", controllers.CreateSword)
 	r.GET("/swords/:id", controllers.FindSword)
+	r.PATCH("/swords/:id", controllers.UpdateSword)
 
 	r.Run(":4000")
 }

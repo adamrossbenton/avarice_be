@@ -18,6 +18,17 @@ type CreateSwordInput struct {
 	Description		string		`json:"description" binding:"required"`
 }
 
+type UpdateSwordInput struct {
+	Name			string		`json:"name"`
+	Image			string		`json:"image"`
+	Price			float32		`json:"price"`
+	Inches			int			`json:"Inches"`
+	Ounces			int			`json:"ounces"`
+	Mats			string		`json:"mats"`
+	Description		string		`json:"description"`
+}
+
+// GET all swords (Index)
 func FindSwords(c *gin.Context) {
 	var swords []models.Sword
 	models.DB.Find(&swords)
@@ -25,6 +36,7 @@ func FindSwords(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": swords})
 }
 
+// POST sword (Create)
 func CreateSword(c *gin.Context) {
 	var input CreateSwordInput
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -46,6 +58,7 @@ func CreateSword(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": sword})
 }
 
+// GET one sword (Show)
 func FindSword(c *gin.Context) {
 	var sword models.Sword
 
@@ -55,4 +68,24 @@ func FindSword(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": sword})
+}
+
+// PATCH one sword (Update)
+func UpdateSword(c *gin.Context) {
+	var sword models.Sword
+	if err := models.DB.Where("id = ?", c.Param("id")).First(&sword).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found"})
+		return
+	}
+
+	var input UpdateSwordInput
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	models.DB.Model(&sword).Updates(input)
+
+	c.JSON(http.StatusOK, gin.H{"data": sword})
+
 }
