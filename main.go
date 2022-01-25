@@ -13,6 +13,7 @@ func main() {
 	models.ConnectDatabase()
 
 	r.GET("/swords", controllers.FindSwords)
+	r.POST("/swords", controllers.CreateSword)
 
 	r.Run(":4000")
 }
