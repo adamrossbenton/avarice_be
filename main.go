@@ -14,6 +14,7 @@ func main() {
 
 	r.GET("/swords", controllers.FindSwords)
 	r.POST("/swords", controllers.CreateSword)
+	r.GET("/swords/:id", controllers.FindSword)
 
 	r.Run(":4000")
 }

@@ -34,6 +34,7 @@ func CreateSword(c *gin.Context) {
 
 	sword := models.Sword{
 		Name: input.Name,
+		Image: input.Image,
 		Price: input.Price,
 		Inches: input.Inches,
 		Ounces: input.Ounces,
@@ -41,6 +42,17 @@ func CreateSword(c *gin.Context) {
 		Description: input.Description,
 	}
 	models.DB.Create(&sword)
+
+	c.JSON(http.StatusOK, gin.H{"data": sword})
+}
+
+func FindSword(c *gin.Context) {
+	var sword models.Sword
+
+	if err := models.DB.Where("id = ?", c.Param("id")).First(&sword).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found"})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{"data": sword})
 }
