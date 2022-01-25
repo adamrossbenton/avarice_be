@@ -1,5 +1,7 @@
 module avarice
 
+// +heroku goVersion 1.16
+
 go 1.17
 
 require (
