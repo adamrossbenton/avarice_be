@@ -34,7 +34,7 @@ func CORS() gin.HandlerFunc {
 func main() {
 	r := gin.Default()
 
-	swords := r.Group("/swords")
+	// swords := r.Group("/swords")
 
 	// From documentation, gonna try something real quick
 	// swords.GET("/", controllers.FindSwords, func (c *gin.Context) {
@@ -49,7 +49,7 @@ func main() {
 	// })
 
 	// Try it using CORS middleware func
-	swords.GET("/", CORS(), controllers.FindSwords)
+	r.GET("/", CORS(), controllers.FindSwords)
 
 	models.ConnectDatabase()
 	r.Run()
