@@ -1,15 +1,14 @@
 package main
 
 import (
-	// "fmt"
 
 	"github.com/gin-gonic/gin"
-	// "github.com/gin-contrib/cors"
 	
 	"avarice/models"
 	"avarice/controllers"
 )
 
+// Inspiration Source: https://github.com/gin-contrib/cors/issues/29#issuecomment-397859488
 func CORS() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
@@ -27,36 +26,14 @@ func CORS() gin.HandlerFunc {
 }
 
 
-// type testHeader struct {
-// 	AccessControlAllowOrigin		string		`header:"Access-Control-Allow-Origin"`
-// }
-
 func main() {
 	r := gin.Default()
 
-	// swords := r.Group("/swords")
-
-	// From documentation, gonna try something real quick
-	// swords.GET("/", controllers.FindSwords, func (c *gin.Context) {
-	// 	h := testHeader{AccessControlAllowOrigin:"*"}
-
-	// 	if err := c.ShouldBindHeader(&h); err != nil {
-	// 		c.JSON(200, err)
-	// 	}
-
-	// 	fmt.Printf("%#v\n", h)
-	// 	c.JSON(200, gin.H{"Access-Control-Allow-Origin": h.AccessControlAllowOrigin})
-	// })
-
-	// Try it using CORS middleware func
 	r.GET("/", CORS(), controllers.FindSwords)
-
+	r.POST("/", CORS(), controllers.CreateSword)
+	r.GET("/:id", CORS(), controllers.FindSword)
+	r.PATCH("/:id", CORS(), controllers.UpdateSword)
+	r.DELETE("/:id", CORS(), controllers.DeleteSword)
 	models.ConnectDatabase()
 	r.Run()
-	// swords.POST("/", controllers.CreateSword)
-	// swords.GET("/:id", controllers.FindSword)
-	// swords.PATCH("/:id", controllers.UpdateSword)
-	// swords.DELETE("/:id", controllers.DeleteSword)
-	// models.ConnectDatabase()
-	// r.Run()
 }
