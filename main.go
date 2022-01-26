@@ -40,15 +40,15 @@ func CORS(c *gin.Context) {
 }
 
 func main() {
-	r := gin.Default()
+	r := gin.New()
 	r.Use(CORS)
-	r.Run()
 
-	r.GET("/swords", controllers.FindSwords)
-	r.POST("/swords", controllers.CreateSword)
-	r.GET("/swords/:id", controllers.FindSword)
-	r.PATCH("/swords/:id", controllers.UpdateSword)
-	r.DELETE("/swords/:id", controllers.DeleteSword)
-
+	swords := r.Group("/swords")
+	swords.GET("/", controllers.FindSwords)
+	swords.POST("/", controllers.CreateSword)
+	swords.GET("/:id", controllers.FindSword)
+	swords.PATCH("/:id", controllers.UpdateSword)
+	swords.DELETE("/:id", controllers.DeleteSword)
 	models.ConnectDatabase()
+	r.Run()
 }
