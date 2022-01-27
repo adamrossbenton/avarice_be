@@ -11,9 +11,9 @@ import (
 type CreateSwordInput struct {
 	Name			string		`json:"name" binding:"required"`
 	Image			string		`json:"image" binding:"required"`
-	Price			float32		`json:"price" binding:"required"`
-	Inches			int			`json:"Inches" binding:"required"`
-	Ounces			int			`json:"ounces" binding:"required"`
+	Price			float32		`json:"price,string" binding:"required"`
+	Inches			int			`json:"inches,string" binding:"required"`
+	Ounces			int			`json:"ounces,string" binding:"required"`
 	Mats			string		`json:"mats" binding:"required"`
 	Description		string		`json:"description" binding:"required"`
 }
@@ -21,9 +21,9 @@ type CreateSwordInput struct {
 type UpdateSwordInput struct {
 	Name			string		`json:"name"`
 	Image			string		`json:"image"`
-	Price			float32		`json:"price"`
-	Inches			int			`json:"inches"`
-	Ounces			int			`json:"ounces"`
+	Price			float32		`json:"price,string"`
+	Inches			int			`json:"inches,string"`
+	Ounces			int			`json:"ounces,string"`
 	Mats			string		`json:"mats"`
 	Description		string		`json:"description"`
 }
