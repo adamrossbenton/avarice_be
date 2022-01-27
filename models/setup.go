@@ -13,6 +13,7 @@ func ConnectDatabase() {
 		panic("Failed to connect to database")
 	}
 
+	// TODO: Check if this AutoMigrate keeps porking my db
 	database.AutoMigrate(&Sword{})
 
 	DB = database
