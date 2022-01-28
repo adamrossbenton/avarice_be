@@ -14,7 +14,7 @@ func ConnectDatabase() {
 	}
 
 	// TODO: Check if this AutoMigrate keeps porking my db
-	database.AutoMigrate(&Sword{})
+	// database.AutoMigrate(&Sword{})
 
 	DB = database
 }
